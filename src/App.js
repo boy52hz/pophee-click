@@ -81,6 +81,8 @@ function App() {
       onMouseDown={actionHee}
       onKeyUp={actionChob}
       onKeyDown={actionHee}
+      onTouchStart={actionHee}
+      onTouchEnd={actionChob}
       tabIndex={-1}
     >
       <div className="App__header">
