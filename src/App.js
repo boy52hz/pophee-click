@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Chob from './assets/chob.png';
-import Hee from './assets/hee.png'
+import ChobWithGlasses from './assets/chob_glasses.png';
+import Hee from './assets/hee.png';
+import HeeWithGlasses from './assets/hee_glasses.png';
 import AudioChob from './assets/chob.aac';
 import AudioHee from './assets/hee.aac';
+import AudioEasterEgg from './assets/chobhee_easter.mp3';
 
 const AppStyle = styled.div`
   position: relative;
@@ -27,20 +30,31 @@ const AppStyle = styled.div`
   }
 
   .App__title {
+    ${props => props.rgb && 'animation: color-change 1s infinite;' }
     font-size: 45px;
   }
 
   .App__caption {
+    ${props => props.rgb && 'animation: color-change 1s infinite;' }
     font-size: 32px;
   }
 
   .App__count {
     font-size: 68px;
+    ${props => props.rgb && 'animation: color-change 1s infinite;' }
+    ${props => props.rgb && 'font-weight: bolder;' }
+    ${props => props.rgb && 'font-size: 88px;' }
   }
 
   .App__image {
     display: block;
     width: 100%;
+  }
+
+  @keyframes color-change {
+    0% { color: red; }
+    50% { color: blue; }
+    100% { color: red; }
   }
 
   @media screen and (max-width: 540px) {
@@ -50,12 +64,19 @@ const AppStyle = styled.div`
   }
 `
 
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function App() {
   const [isMobile, setIsMobile] = useState(false)
   const [audioHee] = useState(new Audio(AudioHee));
   const [audioChob] = useState(new Audio(AudioChob));
   const [img, setImg] = useState(Chob);
   const [count, setCount] = useState(0);
+  const [easter, setEaster] = useState({ reach: getRandomInt(1000, 5000), played: false })
  
   useEffect(() => {
     // Preload
@@ -63,20 +84,32 @@ function App() {
       setIsMobile(true);
      }
     new Image().src = Chob;
+    new Image().src = ChobWithGlasses;
     new Image().src = Hee;
+    new Image().src = HeeWithGlasses;
   },[]);
 
   const actionChob = (e) => {
     if (e.type === 'keydown' && e.repeat) return;
-    setImg(Chob);
+    setImg(easter.played ? ChobWithGlasses : Chob);
     audioChob.play();
   }
 
   const actionHee = (e) => {
     if (e.type === 'keydown' && e.repeat) return;
-    setImg(Hee);
+    setImg(easter.played ? HeeWithGlasses : Hee);
     setCount(prevCount=> prevCount + 1);
     audioHee.play();
+
+    if (count === easter.reach) {
+      let easterAudio = new Audio(AudioEasterEgg);
+      easterAudio.play();
+      setEaster({ played: true });
+
+      easterAudio.addEventListener('ended', e => {
+        setEaster({ played: false });
+      });
+    }
   }
 
   return (
@@ -89,6 +122,7 @@ function App() {
       onTouchStart={actionHee}
       onTouchEnd={actionChob}
       tabIndex={-1}
+      rgb={easter.played}
     >
       <div className="App__header">
         <h1 className="App__title">POPHEE</h1>
