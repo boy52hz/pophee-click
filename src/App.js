@@ -51,6 +51,7 @@ const AppStyle = styled.div`
 `
 
 function App() {
+  const [isMobile, setIsMobile] = useState(false)
   const [audioHee] = useState(new Audio(AudioHee));
   const [audioChob] = useState(new Audio(AudioChob));
   const [img, setImg] = useState(Chob);
@@ -58,6 +59,9 @@ function App() {
  
   useEffect(() => {
     // Preload
+    if( /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      setIsMobile(true);
+     }
     new Image().src = Chob;
     new Image().src = Hee;
   },[]);
@@ -82,8 +86,8 @@ function App() {
       onMouseDown={actionHee}
       onKeyUp={actionChob}
       onKeyDown={actionHee}
-      onTouchStart={actionHee}
-      onTouchEnd={actionChob}
+      onTouchStart={isMobile && actionHee}
+      onTouchEnd={isMobile && actionChob}
       tabIndex={-1}
     >
       <div className="App__header">
