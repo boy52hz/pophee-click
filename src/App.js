@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Chob from './assets/chob.png';
 import Hee from './assets/hee.png'
@@ -10,6 +10,11 @@ function App() {
   const [img, setImg] = useState(Chob);
   const [count, setCount] = useState(0);
  
+  useEffect(() => {
+    new Image().src = Chob;
+    new Image().src = Hee;
+  },[]);
+
   const handleMouseEvent = e => {
     e.preventDefault();
     if (e.type === 'mousedown') {
