@@ -11,6 +11,7 @@ function App() {
   const [count, setCount] = useState(0);
  
   useEffect(() => {
+    // Preload images
     new Image().src = Chob;
     new Image().src = Hee;
   },[]);
@@ -29,28 +30,21 @@ function App() {
     }
   };
 
-  const handleKeyEvent = e => {
-    e.preventDefault();
-    if (e.type === 'keydown') {
-      setImg(Hee);
-      setAudio(new Audio(AudioChob));
-      setCount(count + 1);
-      audio.play();
-    } else {
-      setImg(Chob);
-      setAudio(new Audio(AudioHee));
-      audio.play();
-    }
-  }
-
   return (
-    <div className="App" onMouseDown={handleMouseEvent} onMouseUp={handleMouseEvent} onKeyDown={handleKeyEvent} onKeyUp={handleKeyEvent} >
+    <div className="App" 
+      style={{ 
+        'backgroundImage': `url(${img})`,
+        'backgroundPosition': 'center',
+        'backgroundRepeat': 'no-repeat' }}
+      onMouseDown={handleMouseEvent}
+      onMouseUp={handleMouseEvent}
+    >
       <div className="App__header">
         <h1 className="App__title">POPHEE</h1>
         <p className="App__caption">วันพระวันเจ้าไม่เว้นกันเล้ย...อยากจะ POP แต่ HEE</p>
         <h2 className="App__count">{count}</h2>
       </div>
-      <img className="App__image" src={img} alt='Chob Hee'/>
+      {/* <img className="App__image" src={img} alt='Chob Hee'/> */}
     </div>
   );
 }
