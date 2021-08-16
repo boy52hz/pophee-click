@@ -82,12 +82,12 @@ function App() {
   return (
     <AppStyle 
       img={img} 
-      onMouseUp={actionChob} 
-      onMouseDown={actionHee}
+      onMouseUp={!isMobile && actionChob} 
+      onMouseDown={!isMobile && actionHee}
       onKeyUp={actionChob}
       onKeyDown={actionHee}
-      onTouchStart={isMobile && actionHee}
-      onTouchEnd={isMobile && actionChob}
+      onTouchStart={actionHee}
+      onTouchEnd={actionChob}
       tabIndex={-1}
     >
       <div className="App__header">
