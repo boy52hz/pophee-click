@@ -42,6 +42,7 @@ function App() {
     <div className="App" onMouseDown={handleMouseEvent} onMouseUp={handleMouseEvent} onKeyDown={handleKeyEvent} onKeyUp={handleKeyEvent} >
       <div className="App__header">
         <h1 className="App__title">POPHEE</h1>
+        <p className="App__caption">วันพระวันเจ้าไม่เว้นกันเล้ย...อยากจะ POP แต่ HEE</p>
         <h2 className="App__count">{count}</h2>
       </div>
       <img className="App__image" src={img} alt='Chob Hee'/>

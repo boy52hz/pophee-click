@@ -15,6 +15,10 @@
   font-size: 48px;
 }
 
+.App__caption {
+  font-size: 28px;
+}
+
 .App__count {
   font-size: 45px;
 }
