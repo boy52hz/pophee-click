@@ -23,6 +23,7 @@ const AppStyle = styled.div`
     color: white;
     padding: 1em;
     text-shadow: 2px 2px solid black;
+    user-select: none;
   }
 
   .App__title {
